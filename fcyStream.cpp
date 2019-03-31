@@ -31,7 +31,7 @@ fcyFileStream::fcyFileStream(std::string Path, bool Writable)
 	file.open(path, flag);
 	file.seekg(0, std::fstream::end);
 	size = file.tellg();
-	if(!file.is_open())
+	if (!file.is_open())
 		throw runtime_error("fcyFileStream::fcyFileStream CreateFile Failed");
 }
 

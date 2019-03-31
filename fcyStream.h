@@ -1,10 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
-/// @file  fcyStream.h
-/// @brief 描述并实现了fancy内部的流式接口
-////////////////////////////////////////////////////////////////////////////////
-#pragma once
-
-#include "fcyType.h"
+﻿#pragma once
 
 #include <string>
 #include <vector>
@@ -21,17 +15,21 @@
 /// @{
 
 /// @brief fcy流寻址方式
+
 enum FCYSEEKORIGIN
 {
-	BEG = 0,  ///< @brief 从头开始寻址 @note  指针寻址位置开始于0处
-	CUR = 1,  ///< @brief 从当前位置开始寻址
-	END = 2   ///< @brief 从结尾处开始寻址 @note  指针寻址位置开始于EOF处
+	///< @brief 从头开始寻址 @note  指针寻址位置开始于0处
+	BEG = 0,
+	///< @brief 从当前位置开始寻址
+	CUR = 1,
+	///< @brief 从结尾处开始寻址 @note  指针寻址位置开始于EOF处
+	END = 2
 };
 
-/// @brief fcy流接口
 class fcyStream : public cocos2d::Ref
 {
 public:
+	fcyStream() = default;
 	virtual ~fcyStream() = default;
 
 	/// @brief 返回流是否可写
@@ -97,6 +95,9 @@ public:
 	/// @param[in] DataLength 数据长度
 	/// @return    FCYERR_OK：操作成功完成，FCYERR_INTERNALERR：读取时错误
 	static bool FillStream(fcyStream* Src, fcyStream* Dest, uint64_t DataLength);
+
+	fcyStream(const fcyStream &) = delete;
+	fcyStream &operator =(const fcyStream &) = delete;
 };
 
 /// @brief fcy文件流
@@ -129,7 +130,8 @@ class fcyMemStream :
 private:
 	cocos2d::Data* data = nullptr;
 	bool isOwner;
-public: // 接口实现
+public:
+	// 接口实现
 	bool SetLength(uint64_t Length) override;
 	uint64_t GetPosition() override;
 	bool SetPosition(FCYSEEKORIGIN Origin, int64_t Offset) override;
