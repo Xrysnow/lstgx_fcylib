@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <locale>
 #include <codecvt>
-//#include <Windows.h>
 
 using namespace std;
 

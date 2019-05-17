@@ -2,12 +2,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#define Get16Bits(d) (*((const fuShort *) (d)))
+#define Get16Bits(d) (*((const uint16_t *) (d)))
 
-fuInt fcyHash::SuperFastHash(fcData pData, fuInt DataLen)
+uint32_t fcyHash::SuperFastHash(const uint8_t* pData, uint32_t DataLen)
 {
-	fuInt tRet = DataLen, t;
-	fInt tRem;
+	uint32_t tRet = DataLen, t;
+	int32_t tRem;
 
 	if (DataLen <= 0 || pData == NULL) return 0;
 
@@ -20,7 +20,7 @@ fuInt fcyHash::SuperFastHash(fcData pData, fuInt DataLen)
 		tRet  += Get16Bits(pData);
 		t      = ( Get16Bits(pData+2) << 11 ) ^ tRet;
 		tRet   = (tRet << 16) ^ t;
-		pData += 2 * sizeof(fuShort);
+		pData += 2 * sizeof(uint16_t);
 		tRet  += tRet >> 11;
 	}
 
@@ -30,7 +30,7 @@ fuInt fcyHash::SuperFastHash(fcData pData, fuInt DataLen)
 	case 3:
 		tRet += Get16Bits(pData);
 		tRet ^= tRet << 16;
-		tRet ^= pData[ sizeof(fuShort) ] << 18;
+		tRet ^= pData[ sizeof(uint16_t) ] << 18;
 		tRet += tRet >> 11;
 		break;
 	case 2: 
